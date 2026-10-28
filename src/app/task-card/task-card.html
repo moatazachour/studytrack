@@ -31,4 +31,9 @@
   </div>
   <span class="task-card__subject">{{ task().subject }}</span>
   <span class="priority-label">{{ task().priority }}</span>
+
+  <div class="task-card__footer">
+    <button class="btn" (click)="onNextStep()">Next Status</button>
+    <button class="btn" (click)="onDelete()">Delete</button>
+  </div>
 </div>

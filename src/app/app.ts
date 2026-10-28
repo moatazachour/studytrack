@@ -22,7 +22,7 @@ export class App {
   addTask(taskTitle: string): void {
     this.tasks.update((tasks) => [
       {
-        id: Math.max(...tasks.map((t) => t.id)) + 1,
+        id: Math.max(0, ...tasks.map((t) => t.id)) + 1,
         title: taskTitle,
         subject: 'Test',
         status: 'todo',
@@ -32,5 +32,36 @@ export class App {
     ]);
 
     this.taskTitle.set('');
+  }
+
+  handleMoveToNextStep(id: number): void {
+    const currentTask = this.tasks().find((task) => task.id === id);
+
+    if (!currentTask) return;
+
+    this.tasks.update((tasks) =>
+      tasks.map((task) => {
+        if (task.id === currentTask.id) {
+          return { ...task, status: this.getNextStatus(task.status) };
+        }
+        return task;
+      }),
+    );
+  }
+
+  private getNextStatus(status: string): string {
+    if (status === 'todo') {
+      return 'doing';
+    } else if (status === 'doing') {
+      return 'done';
+    } else if (status === 'done') {
+      return 'todo';
+    } else {
+      return 'invalid status';
+    }
+  }
+
+  handleDeleteTask(id: number): void {
+    this.tasks.update((tasks) => tasks.filter((task) => task.id !== id));
   }
 }

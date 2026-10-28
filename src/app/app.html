@@ -40,7 +40,15 @@
     <p class="input-preview">{{ taskTitle() }}</p>
     <div class="task-grid">
       @for (task of tasks(); track task.id) {
-        <app-task-card [task]="task" />
+        <app-task-card
+          [task]="task"
+          (moveToNextStep)="handleMoveToNextStep($event)"
+          (deleteTask)="handleDeleteTask($event)"
+        />
+      } @empty {
+        <div class="empty-state">
+          <strong>No study tasks yet.</strong>
+        </div>
       }
     </div>
   </div>
