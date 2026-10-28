@@ -19,7 +19,29 @@
     </div>
   </div>
   <app-goal-counter />
-  @for (task of tasks(); track task.id) {
-    <app-task-card [task]="task" />
-  }
+  <div class="panel">
+    <p class="panel-heading">My Tasks</p>
+    <div class="field-row">
+      <input
+        type="text"
+        class="text-input"
+        name="taskInput"
+        placeholder="Enter a new study task..."
+        [(ngModel)]="taskTitle"
+      />
+      <button
+        class="btn btn-primary"
+        (click)="addTask(taskTitle())"
+        [disabled]="taskTitle().trim() === ''"
+      >
+        Add
+      </button>
+    </div>
+    <p class="input-preview">{{ taskTitle() }}</p>
+    <div class="task-grid">
+      @for (task of tasks(); track task.id) {
+        <app-task-card [task]="task" />
+      }
+    </div>
+  </div>
 </div>
