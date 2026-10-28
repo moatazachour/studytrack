@@ -1,7 +1,33 @@
-<div class="task-card">
+<div
+  class="task-card"
+  [class.is-todo]="task().status === 'todo'"
+  [class.is-doing]="task().status === 'doing'"
+  [class.is-done]="task().status === 'done'"
+  [class.is-important]="task().priority === 'important'"
+>
   <div class="task-card__top">
     <h2 class="task-card__title">{{ task().title }}</h2>
-    <p class="task-card__status">{{ task().status }}</p>
+    <p
+      class="task-card__status"
+      [class.status-todo]="task().status === 'todo'"
+      [class.status-doing]="task().status === 'doing'"
+      [class.status-done]="task().status === 'done'"
+    >
+      @switch (task().status) {
+        @case ('todo') {
+          To Do
+        }
+        @case ('doing') {
+          Doing
+        }
+        @case ('done') {
+          Done
+        }
+        @default {
+          Unknown status
+        }
+      }
+    </p>
   </div>
   <span class="task-card__subject">{{ task().subject }}</span>
   <span class="priority-label">{{ task().priority }}</span>
