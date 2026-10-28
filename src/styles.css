@@ -1,1 +1,123 @@
-/* You can add global styles to this file, and also import other style files */
+/* StudyTrack — global CSS. This is styling only, not Angular logic. */
+:root {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  color: #152238;
+  background: #f5f7fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+
+  --page: #f5f7fb;
+  --surface: #ffffff;
+  --text: #152238;
+  --muted: #617189;
+  --border: #e3e8f2;
+  --primary: #3d62e8;
+  --primary-soft: #eaf0ff;
+  --success: #15835a;
+  --success-soft: #e9f8f0;
+  --warning: #a3650b;
+  --warning-soft: #fff5df;
+  --danger: #c43b47;
+  --danger-soft: #fff0f1;
+  --shadow: 0 12px 32px rgba(26, 45, 82, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--page);
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #a8b9ff;
+  outline-offset: 2px;
+}
+
+.btn {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 650;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.15s;
+}
+.btn:not(:disabled):active {
+  transform: translateY(1px);
+}
+.btn:hover:not(:disabled) {
+  background: #f3f6fe;
+}
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+.btn-primary:hover:not(:disabled) {
+  background: #2f50cf;
+}
+.btn-secondary {
+  background: #f0f4fc;
+  border-color: #d9e2f3;
+}
+.btn-danger {
+  color: var(--danger);
+  background: var(--danger-soft);
+  border-color: #ffd0d5;
+}
+.btn-danger:hover:not(:disabled) {
+  background: #ffe2e5;
+}
+
+.text-input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #cbd5e5;
+  padding: 10px 13px;
+  border-radius: 10px;
+  background: white;
+  color: var(--text);
+  outline: none;
+}
+.text-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(61, 98, 232, 0.12);
+}
+.text-input::placeholder {
+  color: #8d99ac;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
