@@ -1,0 +1,53 @@
+.goal-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.goal-copy {
+  flex: 1;
+  min-width: 180px;
+}
+.goal-title {
+  margin: 0 0 5px;
+  font-size: 17px;
+}
+.goal-description {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.goal-stepper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #f5f7fe;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid #e3eaff;
+}
+.stepper-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #cfd9ed;
+  border-radius: 9px;
+  background: #fff;
+  color: #344c7d;
+  font-weight: 800;
+  font-size: 20px;
+}
+.stepper-btn:hover:not(:disabled) {
+  background: #e9efff;
+}
+.stepper-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.stepper-value {
+  min-width: 26px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}

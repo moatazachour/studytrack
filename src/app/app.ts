@@ -12,12 +12,28 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app.css',
 })
 export class App {
-  tasks = signal<Task[]>(TASKS_DATA);
+  readonly tasks = signal<Task[]>(TASKS_DATA);
   totalCount = computed(() => this.tasks().length);
   completedCount = computed(() => this.tasks().filter((task) => task.status === 'done').length);
   remainingCount = computed(() => this.tasks().filter((task) => task.status !== 'done').length);
 
   taskTitle = signal<string>('');
+
+  readonly currentTarget = signal<number>(2);
+  progress = computed(() => {
+    const target = this.currentTarget();
+    const completed = this.completedCount();
+
+    if (target <= 0) return 0;
+
+    if (completed >= target) return 100;
+
+    return Math.round((completed / target) * 100);
+  });
+
+  resetGoal(): void {
+    this.currentTarget.set(2);
+  }
 
   addTask(taskTitle: string): void {
     this.tasks.update((tasks) => [

@@ -18,7 +18,29 @@
       <p class="summary-label">Remaining</p>
     </div>
   </div>
-  <app-goal-counter />
+  <div class="panel">
+    <app-goal-counter [(target)]="currentTarget" />
+    <div class="progress-track">
+      <div class="progress-bar" [style.width.%]="progress()"></div>
+    </div>
+    @if (progress() === 0) {
+      <div class="goal-banner banner-warning">
+        <p class="progress-legend">You haven't completed a task yet.</p>
+      </div>
+    } @else if (progress() === 100) {
+      <div class="goal-banner banner-success">
+        <p class="progress-legend">Daily goal achieved!</p>
+      </div>
+    } @else {
+      <div class="goal-banner banner-neutral">
+        <p class="progress-legend">Keep going!</p>
+      </div>
+    }
+    <div class="row-split">
+      <p>{{ completedCount() }} of {{ currentTarget() }} tasks completed — {{ progress() }}%</p>
+      <button class="btn btn-secondary" (click)="resetGoal()">Reset Goal</button>
+    </div>
+  </div>
   <div class="panel">
     <p class="panel-heading">My Tasks</p>
     <div class="field-row">
