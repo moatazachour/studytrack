@@ -4,16 +4,56 @@
     <div class="form-field">
       <label>Title</label>
       <input type="text" formControlName="title" />
+
+      @if (
+        taskForm.get('title')?.invalid &&
+        (taskForm.get('title')?.touched || taskForm.get('title')?.dirty)
+      ) {
+        <div class="form-error">
+          @if (taskForm.get('title')?.errors?.['required']) {
+            Title is required.
+          }
+          @if (taskForm.get('title')?.errors?.['minlength']) {
+            Title must contain at least 4 characters.
+          }
+          @if (taskForm.get('title')?.errors?.['maxlength']) {
+            Title must contain at most 50 characters.
+          }
+          @if (taskForm.get('title')?.errors?.['forbiddenName']) {
+            This title is not allowed.
+          }
+        </div>
+      }
     </div>
 
     <div class="form-field">
       <label>Subject</label>
       <input type="text" formControlName="subject" />
+      @if (
+        taskForm.get('subject')?.invalid &&
+        (taskForm.get('subject')?.dirty || taskForm.get('subject')?.touched)
+      ) {
+        <div class="form-error">
+          @if (taskForm.get('subject')?.errors?.['required']) {
+            Please select a subject.
+          }
+        </div>
+      }
     </div>
 
     <div class="form-field">
       <label>Course Code</label>
       <input type="text" formControlName="courseCode" />
+      @if (courseCode?.invalid && (courseCode?.touched || courseCode?.dirty)) {
+        <div class="form-error">
+          @if (courseCode?.errors?.['required']) {
+            Course Code is required.
+          }
+          @if (courseCode?.errors?.['pattern']) {
+            Course code format is invalid.
+          }
+        </div>
+      }
     </div>
 
     <div class="form-field">
@@ -33,6 +73,16 @@
       <div class="form-field">
         <label>Estimated minutes</label>
         <input type="number" formControlName="estimatedMinutes" />
+        @if (estimatedMinutes?.invalid || estimatedMinutes?.touched || estimatedMinutes?.dirty) {
+          <div class="form-error">
+            @if (estimatedMinutes?.errors?.['required']) {
+              Estimated time is required.
+            }
+            @if (estimatedMinutes?.errors?.['pattern']) {
+              Enter a valid number.
+            }
+          </div>
+        }
       </div>
 
       <div class="form-field">
@@ -56,5 +106,21 @@
         <br />
       }
     </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Form State Diagnostics</h3>
+    <ul>
+      <li><strong>Form Validity: </strong>{{ taskForm.valid ? 'VALID' : 'INVALID' }}</li>
+      <li><strong>Form Status: </strong>{{ taskForm.status }}</li>
+      <li>
+        <strong>Pristine / Dirty: </strong
+        >{{ taskForm.pristine ? 'Pristine (Untouched value changes)' : 'Dirty (Value changed)' }}
+      </li>
+      <li>
+        <strong>Touched / Untouched:</strong>
+        {{ taskForm.touched ? 'Touched (Visited)' : 'Untouched (Never visited)' }}
+      </li>
+    </ul>
   </div>
 </form>
