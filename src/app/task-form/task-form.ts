@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -9,6 +9,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Task } from '../task-card/task-model';
+import { JsonPipe } from '@angular/common';
 
 export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -22,7 +24,7 @@ export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
 
 @Component({
   selector: 'app-task-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, JsonPipe],
   templateUrl: './task-form.html',
   styleUrl: './task-form.css',
 })
@@ -48,6 +50,8 @@ export class TaskForm {
     ]),
   });
 
+  readonly addTask = output<Task>();
+
   get checkListControls(): FormControl[] {
     return (this.taskForm.get('checkList') as FormArray).controls as FormControl[];
   }
@@ -68,5 +72,39 @@ export class TaskForm {
   removeChecklistItem(index: number) {
     const checkListArray = this.taskForm.get('checkList') as FormArray;
     checkListArray.removeAt(index);
+  }
+
+  onSubmit(): void {
+    if (this.taskForm.invalid) {
+      this.taskForm.markAllAsTouched();
+      return;
+    }
+
+    const formValue = this.taskForm.getRawValue();
+
+    const newTask: Task = {
+      id: Date.now(),
+      title: formValue.title!,
+      subject: formValue.subject!,
+      courseCode: formValue.courseCode || undefined,
+      status: formValue.status!,
+      priority: formValue.priority!,
+      estimatedMinutes: formValue.studyDetails.estimatedMinutes ?? undefined,
+      notes: formValue.studyDetails.notes || undefined,
+      checklist: formValue.checkList.filter((item): item is string => item !== null && item !== ''),
+    };
+
+    this.addTask.emit(newTask);
+    this.reset();
+  }
+
+  reset() {
+    this.taskForm.reset({
+      status: 'todo',
+      priority: 'normal',
+      studyDetails: {
+        estimatedMinutes: 30,
+      },
+    });
   }
 }

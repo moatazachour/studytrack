@@ -100,4 +100,8 @@ export class App implements OnInit {
   handleDeleteTask(id: number): void {
     this.tasks.update((tasks) => tasks.filter((task) => task.id !== id));
   }
+
+  handleAddTask(task: Task) {
+    this.tasks.update((tasks) => [task, ...tasks]);
+  }
 }

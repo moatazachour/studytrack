@@ -1,4 +1,4 @@
-<form [formGroup]="taskForm" class="task-form">
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-form">
   <div class="form-section">
     <h3>Add New Task</h3>
     <div class="form-field">
@@ -122,5 +122,31 @@
         {{ taskForm.touched ? 'Touched (Visited)' : 'Untouched (Never visited)' }}
       </li>
     </ul>
+  </div>
+
+  <div class="form-section">
+    <h3>Form Diagnostic Preview (Disabled Control Comparison)</h3>
+
+    <div class="form-preview">
+      <div>
+        <strong
+          ><code>taskForm.value</code> <span>(Excludes disabled <code>status</code>)</span>:</strong
+        >
+        <pre>{{ taskForm.value | json }}</pre>
+      </div>
+
+      <div style="flex: 1">
+        <strong
+          ><code>taskForm.getRawValue()</code>
+          <span>(Includes disabled <code>status: 'todo'</code>)</span>:</strong
+        >
+        <pre>{{ taskForm.getRawValue() | json }}</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit">Create Task</button>
+    <button (click)="reset()">Reset</button>
   </div>
 </form>
