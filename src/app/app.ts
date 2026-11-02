@@ -4,10 +4,11 @@ import { TaskCard } from './task-card/task-card';
 import { TASKS_DATA } from './tasks-data';
 import { Task } from './task-card/task-model';
 import { FormsModule } from '@angular/forms';
+import { TaskForm } from './task-form/task-form';
 
 @Component({
   selector: 'app-root',
-  imports: [GoalCounter, TaskCard, FormsModule],
+  imports: [GoalCounter, TaskCard, FormsModule, TaskForm],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

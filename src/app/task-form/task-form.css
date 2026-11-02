@@ -1,0 +1,100 @@
+/* Main form */
+.task-form {
+  display: grid;
+  gap: 20px;
+  max-width: 720px;
+}
+
+/* Form sections */
+.form-section {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--border, #e3e8f2);
+  border-radius: 14px;
+  background: var(--surface, #fff);
+}
+
+.form-section h3 {
+  margin: 0;
+  color: var(--text, #152238);
+  font-size: 16px;
+}
+
+/* Individual fields */
+.form-field {
+  display: grid;
+  gap: 6px;
+}
+
+.form-field label {
+  color: var(--text, #152238);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--border, #e3e8f2);
+  border-radius: 8px;
+  background: var(--surface, #fff);
+  color: var(--text, #152238);
+  font: inherit;
+}
+
+/* Focus effect */
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: 2px solid var(--primary, #3d62e8);
+  outline-offset: 1px;
+}
+
+/* Validation errors */
+.form-error {
+  color: #c0392b;
+  font-size: 12px;
+}
+
+/* Checklist */
+.checklist-row,
+.form-actions,
+.form-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.form-actions button,
+.checklist-row button {
+  padding: 9px 13px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--primary, #3d62e8);
+  color: #fff;
+  cursor: pointer;
+}
+
+.form-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Form status */
+.form-status {
+  color: var(--muted, #617189);
+  font-size: 12px;
+}
+
+/* Preview */
+.form-preview {
+  padding: 12px;
+  border-radius: 10px;
+  background: #f5f7fb;
+}
