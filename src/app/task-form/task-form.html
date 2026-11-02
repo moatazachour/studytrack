@@ -1,1 +1,44 @@
-<p>task-form works!</p>
+<form [formGroup]="taskForm" class="task-form">
+  <div class="form-section">
+    <h3>Add New Task</h3>
+    <div class="form-field">
+      <label>Title</label>
+      <input type="text" formControlName="title" />
+    </div>
+
+    <div class="form-field">
+      <label>Subject</label>
+      <input type="text" formControlName="subject" />
+    </div>
+
+    <div class="form-field">
+      <label>Course Code</label>
+      <input type="text" formControlName="courseCode" />
+    </div>
+
+    <div class="form-field">
+      <label>Priority</label>
+      <select formControlName="priority">
+        <option value="normal">Normal</option>
+        <option value="important">Important</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label>Status</label>
+      <input type="text" formControlName="status" />
+    </div>
+
+    <div formGroupName="studyDetails">
+      <div class="form-field">
+        <label>Estimated minutes</label>
+        <input type="number" formControlName="estimatedMinutes" />
+      </div>
+
+      <div class="form-field">
+        <label>Notes</label>
+        <textarea formControlName="notes"></textarea>
+      </div>
+    </div>
+  </div>
+</form>

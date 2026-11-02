@@ -1,18 +1,18 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { GoalCounter } from './goal-counter/goal-counter';
 import { TaskCard } from './task-card/task-card';
 import { TASKS_DATA } from './tasks-data';
 import { Task } from './task-card/task-model';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskForm } from './task-form/task-form';
 
 @Component({
   selector: 'app-root',
-  imports: [GoalCounter, TaskCard, FormsModule, TaskForm],
+  imports: [GoalCounter, TaskCard, FormsModule, TaskForm, ReactiveFormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
+export class App implements OnInit {
   readonly tasks = signal<Task[]>(TASKS_DATA);
   totalCount = computed(() => this.tasks().length);
   completedCount = computed(() => this.tasks().filter((task) => task.status === 'done').length);
@@ -31,6 +31,25 @@ export class App {
 
     return Math.round((completed / target) * 100);
   });
+
+  taskFilter = new FormControl('');
+
+  ngOnInit(): void {
+    this.taskFilter.valueChanges.subscribe((value) => {
+      this.filterTasks(value);
+    });
+  }
+
+  filterTasks(query: string | null): void {
+    const currentValue = query?.trim().toLocaleLowerCase();
+
+    if (!currentValue) {
+      this.tasks.set(TASKS_DATA);
+      return;
+    }
+
+    this.tasks.set(TASKS_DATA.filter((task) => task.subject.toLowerCase().includes(currentValue)));
+  }
 
   resetGoal(): void {
     this.currentTarget.set(2);

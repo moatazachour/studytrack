@@ -43,7 +43,15 @@
   </div>
   <div class="panel">
     <app-task-form />
+  </div>
 
+  <div class="panel">
+    <div class="form-section">
+      <h3>Filter tasks by subject:</h3>
+      <div class="field-row">
+        <input type="text" [formControl]="taskFilter" class="text-input" />
+      </div>
+    </div>
     <div class="task-grid">
       @for (task of tasks(); track task.id) {
         <app-task-card
