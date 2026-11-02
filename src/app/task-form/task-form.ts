@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-form',
@@ -18,5 +18,23 @@ export class TaskForm {
       estimatedMinutes: new FormControl(30),
       notes: new FormControl(''),
     }),
+    checkList: new FormArray([
+      new FormControl('', Validators.required),
+      new FormControl('', Validators.required),
+    ]),
   });
+
+  get checkListControls() {
+    return (this.taskForm.get('checkList') as FormArray).controls;
+  }
+
+  addCheckListItem(): void {
+    const checkListArray = this.taskForm.get('checkList') as FormArray;
+    checkListArray.push(new FormControl(''));
+  }
+
+  removeChecklistItem(index: number) {
+    const checkListArray = this.taskForm.get('checkList') as FormArray;
+    checkListArray.removeAt(index);
+  }
 }

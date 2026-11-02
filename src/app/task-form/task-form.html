@@ -41,4 +41,20 @@
       </div>
     </div>
   </div>
+
+  <div class="form-section">
+    <div class="checklist-row">
+      <label>Study Checklist</label>
+      <button class="btn btn-secondary" (click)="addCheckListItem()">+ Add Step</button>
+    </div>
+    <div formArrayName="checkList">
+      @for (control of checkListControls; track control; let i = $index) {
+        <div class="checklist-row">
+          <input type="text" [formControl]="control" />
+          <button type="button" class="btn" (click)="removeChecklistItem(i)">Remove</button>
+        </div>
+        <br />
+      }
+    </div>
+  </div>
 </form>
